@@ -1,7 +1,7 @@
 var points = [];
 var canvas;
 var speed;
-var stars = 1000;
+var stars = 400;
 
 
 var time = 0;
