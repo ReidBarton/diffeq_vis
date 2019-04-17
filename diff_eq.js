@@ -22,6 +22,7 @@ let osc, osc2;
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent('sketch-holder');
   speed = 10;
   zoom_scale = 1/width
   background(0);
@@ -111,51 +112,67 @@ function draw() {
 
     // update pos using forward Euler
 
-    // skylar "gas gas gas"; h = 0.01
-    // xspeed = h*cos(time)*(1-cos(time));
-    // yspeed = h*points[i].px/points[i].py;
-    // if(points[i].px/points[i].py > 0.5){
-    //   yspeed = 0;
-    // }
+    if(time<7) {
+      xspeed = h*points[i].py;
+      yspeed = h*points[i].px*cos(points[i].py*time);
+    } else if(time<14) {
+      xspeed = h*points[i].py*sin(points[i].py);
+      yspeed = h*points[i].px*cos(points[i].py);
+    } else if(time<20) {
+      xspeed = h*points[i].py*log(abs(points[i].py));
+      yspeed = h*points[i].px*cos(points[i].py);
+    } else if(time<25){
+      // skylar "gas gas gas"; h = 0.01
+      xspeed = h*cos(time)*(1-cos(time));
+      yspeed = h*points[i].px/points[i].py;
+      if(points[i].px/points[i].py > 0.5){
+        yspeed = 0;
+      }
+    } else if(time<30) {
+      // super-sonic hyway
+      xspeed = h*2.71^(-points[i].py)*points[i].px/points[i].py;
+      yspeed = h*(cos(points[i].px) + (sin(points[i].py))^2);
+    } else if(time<35) {
+      // pool-boi h=0.01
+      xspeed = h*(cos(points[i].px)+cos(points[i].py));
+      yspeed = h*((points[i].px)^2 + (points[i].py)^2)*cos(time);
+    } else if(time<40) {
+      // spiral boi (put negs for zoom change), h = 0.04
+      xspeed = -1*h*(points[i].py + points[i].px);
+      yspeed = -1*h*(points[i].py - points[i].px);
+    } else if(time<45) {
+      xspeed = h*points[i].py;
+      yspeed = h*points[i].px*cos(points[i].py*time);
+    } else if(time<55) {
+      // spirals in squares 
+      zoom_scale = 504428960.9570371; //h = 0.03; lifetime = 72
+      xspeed = 1*h*cos(time)*(points[i].py + points[i].px)^2;
+      yspeed = 1*h*cos(time)*(points[i].py - points[i].px)^2;
+    } else {
+      time = 0;
+      zoom_scale = 1/width;
+    }
     
-    // super-sonic hyway
-    // xspeed = h*2.71^(-points[i].py)*points[i].px/points[i].py;
-    // yspeed = h*(cos(points[i].px) + (sin(points[i].py))^2);
-
-    // pool-boi h=0.01
-    // xspeed = h*(cos(points[i].px)+cos(points[i].py));
-    // yspeed = h*((points[i].px)^2 + (points[i].py)^2)*cos(time);
 
 
-    // spiral boi (put negs for zoom change), h = 0.04
-    // xspeed = -1*h*(points[i].py + points[i].px);
-    // yspeed = -1*h*(points[i].py - points[i].px);
-
-    // spirals in squares 
-    // zoom_scale = 504428960.9570371; h = 0.03; lifetime = 72
-    // xspeed = 1*h*cos(time)*(points[i].py + points[i].px)^2;
-    // yspeed = 1*h*cos(time)*(points[i].py - points[i].px)^2;
 
 
-    // xspeed = h*points[i].py;
-    // yspeed = h*points[i].px*cos(points[i].py*time);
 
 
-    // xspeed = h*points[i].py;
-    // yspeed = h*points[i].px*cos(points[i].py*time);
 
-    // xspeed = h*points[i].py*sin(points[i].py);
-    // yspeed = h*points[i].px*cos(points[i].py);
+    
 
-    // xspeed = h*points[i].py*log(abs(points[i].py));
-    // yspeed = h*points[i].px*cos(points[i].py);
+   
 
+
+
+    
     // xspeed = h*points[i].py*(points[i].px);
     // yspeed = h*points[i].py*points[i].py;
 
-    xspeed = h*points[i].py*(points[i].px);
-    yspeed = h;
 
+
+    // update using forward Euler approximation 
     points[i].xpos = points[i].px + xspeed;
     points[i].ypos = points[i].py + yspeed;
 
