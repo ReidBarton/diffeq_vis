@@ -72,7 +72,7 @@ function setup() {
 
 function mouseWheel(event) {
   zoom_scale += zoom_scale/1000*event.delta;
-  document.getElementById("zoom").innerHTML = str(100*zoom_scale).substring(0,7);
+  document.getElementById("zoom").innerHTML = Number.parseFloat(zoom_scale*100).toExponential(2)//str(100*zoom_scale).substring(0,7);
 
 }
 
