@@ -35,3 +35,31 @@ img {
   opacity: 0.5;
 
 }
+
+input {
+  background: transparent;
+  border-color: grey;
+  color: aliceblue;
+  display: inline-block;
+}
+
+.contain-inputs {
+  margin: 10px;
+  padding: 2px;
+  width: 15%;
+  height: 25%;
+  background-color: rgba(200, 200, 200, 0.2);
+
+}
+
+p {
+  display: inline-block;
+  color: aliceblue;
+}
+
+button {
+  background-color: rgba(200, 200, 200, 0.2);
+  color: aliceblue;
+  border-radius: 10%;
+
+}
