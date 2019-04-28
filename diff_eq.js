@@ -120,8 +120,14 @@ function draw() {
     var x = points[i].px;
     var y = points[i].py;
 
-    xspeed = eval(dx_input);
-    yspeed = eval(dy_input);
+    try {
+      xspeed = eval(dx_input);
+      yspeed = eval(dy_input);
+    } catch {
+      xspeed = 0;
+      yspeed = 0;
+    }
+
 
     // update using forward Euler approximation 
     points[i].xpos = x + xspeed;
