@@ -2,7 +2,6 @@
   <head>
     <script src="bin/p5.min.js"></script>
     <!-- <script src="bin/p5.sound.min.js"></script> -->
-    <script src="diff_eq.js"></script>
     <link rel="stylesheet" href="index.css" type="text/css"></link>
     <link rel="shortcut icon" href="bin/rb_icon.ico" />
   </head>
@@ -23,9 +22,13 @@
     <div class="contain-inputs">
       <span><p>dx/dt:</p><input type="text" id="dx" value="sin(y)"></span>
       <span><p>dy/dt:</p><input type="text" id="dy" value="sin(x)*cos(t)"></span>
+      <div class="slidecontainer">
+        <span><p>particle density:</p><input type="range" min="100" max="999" value="400" class="slider" id="stars">
+      </div>
       <button onclick="updateFunction()">generate</button>
-      <button onclick="updateRandom()">random!</button>
+      <button onclick="updateRandom()">random preset!</button>
       <p>Zoom Scale: <p><p id="zoom">0.5<p>
     </div>
+    <script src="diff_eq.js"></script>
   </body>
 </html> 

@@ -43,7 +43,6 @@ function setup() {
   background(0);
   for(var i=0; i<stars; i++){
     points.push(new Point((random()- 1/2)*width*zoom_scale, (random()- 1/2)*height*zoom_scale));
-    stroke(255);
     // osc_temp = new p5.Oscillator()
     // osc_temp.amp(0.5);
     // osc.push(osc_temp);
@@ -244,7 +243,23 @@ function updateRandom(){
   dy.value = dy_input;
   dx_input = "h*(" + dx_input + ")"
   dy_input = "h*(" + dy_input + ")"
-  document.getElementById("zoom").innerHTML = str(100*zoom_scale).substring(0,7);
+  document.getElementById("zoom").innerHTML = Number.parseFloat(zoom_scale*100).toExponential(2);
 
 
+}
+
+var slider = document.getElementById("stars");
+slider.oninput = function() {
+  var old_stars = stars;
+  new_stars = this.value;
+  if(new_stars>old_stars){
+    for(var i=0; i<(new_stars-old_stars); i++){
+      points.push(new Point((random()- 1/2)*width*zoom_scale, (random()- 1/2)*height*zoom_scale));  
+    }
+  } else {
+    for(var i=0; i<(old_stars-new_stars); i++){
+      points.pop();  
+    }
+  }
+  stars = new_stars;
 }
